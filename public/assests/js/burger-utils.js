@@ -20,9 +20,9 @@ $(function() {
         );
     });
 
-    $('#burger-id').on("click", function(event){
+    $('#burger_submit').on("click", function(event){
         var newBurger = {
-            burger_name: $("#burger_name").val().trim(),
+            burger_name: $("#add_burger").val().trim(),
         }
         
         // POST to /api/burgers/
@@ -33,15 +33,15 @@ $(function() {
       var row = $("<div>");
       row.addClass("burger");
 
-      row.append("<p>" + burgerModel.burger_name + " burgers: </p>");
+      row.append("<p>" + burgerModel.newBurger + "</p>");
       row.append("<p>" + burgerModel.body + "</p>");
       
 
       $("#id").prepend(row);
     });
     location.reload();
-
-
-        // After post is done, reload the page
+  
+    
+    // After post is done, reload the page
     })
 });

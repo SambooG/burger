@@ -18,16 +18,7 @@ function printQuestionMarks(num) {
     // loop through the keys and push the key/value as a string int arr
     for (var key in ob) {
       var value = ob[key];
-      // check to skip hidden properties
-      if (Object.hasOwnProperty.call(ob, key)) {
-        // if string with spaces, add quotations 
-        if (typeof value === "string" && value.indexOf(" ") >= 0) {
-          value = "'" + value + "'";
-        }
-        // e.g. {name: ''} => ["name=''"]
-        // e.g. {sleepy: true} => [""]
-        arr.push(key + "=" + value);
-      }
+      arr.push(key + "=" + value);
     }
   
     // translate array of strings to a single comma-separated string
@@ -35,8 +26,8 @@ function printQuestionMarks(num) {
   }
   
   // Object for all our SQL statement functions.
-  var orm = {
-    all: function(tableInput, cb) {
+  const orm = {
+    selectAll: function(tableInput, cb) {
       var queryString = "SELECT * FROM " + tableInput + ";";
       connection.query(queryString, function(err, result) {
         if (err) {
@@ -45,15 +36,22 @@ function printQuestionMarks(num) {
         cb(result);
       });
     },
-    create: function(table, cols, vals, cb) {
-      var queryString = "INSERT INTO " + table;
-  
-      queryString += " (";
-      queryString += cols.toString();
-      queryString += ") ";
-      queryString += "VALUES (";
-      queryString += printQuestionMarks(vals.length);
-      queryString += ") ";
+    insertOne: function(table, cols, vals, cb) {
+      /*
+        table = 'burgers_table'
+        cols = ['burger_name', 'devoured']
+        vals = ['Good Burger', 'false']
+        cb = function() {};
+      */
+
+      var queryString = "INSERT INTO " + table; // quertyString = insert into burgers_table
+
+      queryString += " ("; // queryString = insert into burgers_table (
+      queryString += cols.toString();// queryString = insert into burgers_table ( burger_name, devoured
+      queryString += ") ";// queryString = insert into burgers_table ( burger_name, devoured)
+      queryString += "VALUES (";// queryString = insert into burgers_table ( burger_name, devoured) Values(
+      queryString += printQuestionMarks(vals.length);// queryString = insert into burgers_table ( burger_name, devoured) Values(?,?
+      queryString += ") ";// queryString = insert into burgers_table ( burger_name, devoured) Values(?,?)
   
       console.log(queryString);
   
@@ -66,7 +64,7 @@ function printQuestionMarks(num) {
       });
     },
     // An example of objColVals would be {name: panther, sleepy: true}
-    update: function(table, objColVals, condition, cb) {
+    updateOne: function(table, objColVals, condition, cb) {
       var queryString = "UPDATE " + table;
   
       queryString += " SET ";
@@ -88,4 +86,8 @@ function printQuestionMarks(num) {
 
 
 
-module.export = { selectAll, insertOne, updateOne }
+module.exports = orm;
+
+// selectAll()
+// insertOne()
+// updateOne()

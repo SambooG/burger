@@ -19,10 +19,7 @@ $(function() {
           }
         );
     });
-});
-
-    function addNewBurger(){
-        $('#burger_submit').on("click", function(event){
+    $('#burger-submit').on("click", function(event){
         var newBurger = {
             burger_name: $("#add_burger").val().trim(),
             devoured: false
@@ -35,8 +32,9 @@ $(function() {
                 console.log("Added", newBurger);
                 location.reload();
             }
-        )
-    
-    // After post is done, reload the page
-        })
-    }
+            );
+            
+            // After post is done, reload the page
+        });
+});
+        

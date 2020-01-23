@@ -19,29 +19,24 @@ $(function() {
           }
         );
     });
+});
 
-    $('#burger_submit').on("click", function(event){
+    function addNewBurger(){
+        $('#burger_submit').on("click", function(event){
         var newBurger = {
             burger_name: $("#add_burger").val().trim(),
-        }
-        
-        // POST to /api/burgers/
-        $.post("/api/new", newBurger)
-    // On success, run the following code
-    .then(function() {
-
-      var row = $("<div>");
-      row.addClass("burger");
-
-      row.append("<p>" + burgerModel.newBurger + "</p>");
-      row.append("<p>" + burgerModel.body + "</p>");
-      
-
-      $("#id").prepend(row);
-    });
-    location.reload();
-  
+            devoured: false
+        };
+        $.post("/api/burgers/"+ newBurger, {
+            type: "POST",
+            data: newBurger
+        }).then(
+            function(){
+                console.log("Added", newBurger);
+                location.reload();
+            }
+        )
     
     // After post is done, reload the page
-    })
-});
+        })
+    }

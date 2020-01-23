@@ -7,7 +7,10 @@ const BurgerModel = {
 
     updateBurgers: function(vals, condition, cb){
         orm.updateOne("burgers", vals, condition, cb);
-    }
+    },
+    addBurgers: function(vals, cb){
+        orm.updateOne("burgers", vals, cb);
+    },
 };
 
 module.exports = BurgerModel

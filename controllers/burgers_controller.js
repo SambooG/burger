@@ -21,7 +21,17 @@ router.get('/', function (req, res) {
 
   })
 
+  router.put('/api/burgers', function (req, res) {
+    (burgerModel.newBurger)(function(data){
+      const newData = {
+          burgers: newBurger,
+          devoured:false
+        };
+        res.render(newData)
+  })
 
+  // 4. Update burger-controller with logic for PUT (updating devoured state) and POST (adding new burger)
+  // 1. For POST your data should look like { burger_name: ‘name here’, devoured: false
 
 
 module.exports = router

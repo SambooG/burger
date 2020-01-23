@@ -20,8 +20,9 @@ $(function() {
         );
     });
     $('#burger-submit').on("click", function(event){
+        console.log("I work!")
         var newBurger = {
-            burger_name: $("#add_burger").val().trim(),
+            burger_name: $("#add-burger").val().trim(),
             devoured: false
         };
         $.post("/api/burgers/"+ newBurger, {
@@ -30,9 +31,9 @@ $(function() {
         }).then(
             function(){
                 console.log("Added", newBurger);
-                location.reload();
             }
             );
+            // location.reload();
             
             // After post is done, reload the page
         });

@@ -7,7 +7,7 @@ router.get('/', function (req, res) {
         const hbsObject = {
             burgers: data
         };
-        console.log(hbsObject);
+        // console.log(hbsObject);
         res.render("index", hbsObject);
     })
     // res.send('hello world')
@@ -16,18 +16,22 @@ router.get('/', function (req, res) {
   router.put('/api/burgers/:id', function (req, res) {
     console.log("ID: ", req.params.id);
     console.log("Data: ", req.body);
-    // BurgerModel.updateBurgers();
-    // res.send('Success');
-
+    const condition = "id = " + req.params.id;
+    BurgerModel.updateBurgers({ devoured: true }, condition, function(data){
+      res.send(data);
+    });
   })
 
-  router.put('/api/burgers', function (req, res) {
-    (burgerModel.newBurger)(function(data){
-      const newData = {
-          burgers: newBurger,
-          devoured:false
-        };
-        res.render(newData)
+  router.post('/api/burgers', function (req, res) {
+    const data = req.body; // { buger_name: 'mah burger', devoured: false }
+    const values = [
+      data.burger_name
+    ];
+    console.log("VALUES: ", values);
+    BurgerModel.addBurgers(values, function(data){
+      res.send(data); // res.status(200);
+    })
+    // res.send('Ember loves me');
   })
 
   // 4. Update burger-controller with logic for PUT (updating devoured state) and POST (adding new burger)

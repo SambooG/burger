@@ -9,7 +9,8 @@ const BurgerModel = {
         orm.updateOne("burgers", vals, condition, cb);
     },
     addBurgers: function(vals, cb){
-        orm.updateOne("burgers", vals, cb);
+        const columns = ["burger_name"];
+        orm.insertOne("burgers", columns, vals, cb);
     },
 };
 
